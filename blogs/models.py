@@ -58,8 +58,12 @@ class Album(models.Model):
     title = models.CharField(max_length=225)
     slug = models.SlugField(unique=True)
     date_created = models.DateTimeField()
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
+    author = models.ManyToManyField('Artist')
     categories = models.ManyToManyField('Category')
     image = models.ImageField(upload_to='post_images/', blank=True, null=True)
 
 class Artist(models.Model):
+    name = models.CharField(max_length=100)
+    
+    
+

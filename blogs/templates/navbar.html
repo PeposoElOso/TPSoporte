@@ -13,10 +13,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'blogs:featured' %}">Destacados</a>
                 </li>
+                
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
-                       Categorías
+                       Generos
                     </a>
                     <ul class="dropdown-menu">
                         {% for category in categories %}
@@ -32,6 +33,7 @@
             </form>
             {% if user.is_authenticated %}
                 <a class="btn btn-outline-primary ms-2" href="{% url 'logout' %}" role="button" >Sign Out</a>
+                <a class="btn btn-outline-primary ms-2" href="{% url 'users:profile' %}" role="button" >Profile</a>
             {% else %}
                 <a class="btn btn-outline-primary ms-2" href="{% url 'login' %}" role="button" >Sign In</a>
             {% endif %}
