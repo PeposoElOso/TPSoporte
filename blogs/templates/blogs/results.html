@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %} 
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Overview</th>
+            <th>Image</th>
+            <th>Author</th>
+            <th>Fecha de Publicacion</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for post in post_list %}
+            <tr class="table-primary">
+                <th scope="row">{{ forloop.counter }}</th>
+                <td><a href="{{ post.get_absolute_url }}" class="text-black" style="text-decoration: none">{{ post.title }}</a></td>
+                <td><a href="{{ post.get_absolute_url }}" class="text-black" style="text-decoration: none">{{ post.overview }}</a></td>
+                {% if post.image %}
+                    <td><img src="{{ post.image.url }}" class = "img-thumbnail img-fluid" style="max-width: 80px;" alt="thumbnail" ></td>
+                {% else %}
+                    <td>No te hagas el gary bale</td>
+                {% endif %}
+                <td>{{ post.author }}</td>
+                <td>{{ post.pub_date.date }}</td>
+            </tr>
+            
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
