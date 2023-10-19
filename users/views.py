@@ -9,8 +9,9 @@ from django.shortcuts import render
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import UpdateView
-
 from django.views.generic.detail import DetailView
+
+
 # Create your views here.
 
 
@@ -29,6 +30,11 @@ class UserRegistration(FormView):
 class ProfileView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'users/profile.html'
-
     def get_object(self, queryset=None):
+        
         return self.request.user
+      
+def contador(request, user_id):
+    user = User.objects.get(pk=user_id)
+    
+    return render(request, {'user': user})

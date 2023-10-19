@@ -19,15 +19,13 @@ def home_page(request):
         pub_date__lte=timezone.now()
     )
     categories = Category.objects.all()
-    featured = Post.objects.filter(featured =True).filter(
-        pub_date__lte=timezone.now()
-    )[:3]
-    albums = Album.objects.get
+    albums = Album.objects.all()[:3]
     context= {
         
         'post_list' : posts,
         
-        'featured' : featured
+    
+        'albums' : albums
     }
     
     return render(request, 'blogs/home_page.html', context=context)
@@ -95,20 +93,21 @@ class FeaturedListView(generic.ListView):
         query = Post.objects.filter(featured =True).filter(
         pub_date__lte=timezone.now()
     )
+        
         return query
     
     
     
 class CategoryListView(generic.ListView):
-    model = Post
-    template_name = "blogs/results.html"
+    model = Album
+    template_name = "blogs/categories_results.html"
 
     def get_queryset(self):
         query = self.request.path.replace('/category/','')
-        post_list = Post.objects.filter(categories__id =query).filter(
-            pub_date__lte=timezone.now()
-        )
-        return post_list
+        
+        album_list = Album.objects.filter(categories__id = query)
+        print(album_list)
+        return album_list
     
    
     

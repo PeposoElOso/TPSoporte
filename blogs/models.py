@@ -4,16 +4,6 @@ from django.urls import reverse
 from django.utils import timezone
 # Create your models here.
 
-class Album(models.Model):
-    title = models.CharField(max_length=225)
-    
-    date_created = models.DateTimeField()
-    author = models.ManyToManyField('Artist')
-    categories = models.ManyToManyField('Category')
-    image = models.ImageField(upload_to='albums/', blank=True, null=True)
-    
-    def __str__ (self):
-        return self.title
 
 class Artist(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -21,6 +11,15 @@ class Artist(models.Model):
     def __str__ (self):
         return self.name
 
+class Album(models.Model):
+    title = models.CharField(max_length=225)
+    date_created = models.DateField()
+    author = models.ForeignKey(Artist, on_delete=models.PROTECT, default=False)
+    categories = models.ManyToManyField('Category')
+    image = models.ImageField(upload_to='albums/', blank=True, null=True)
+    
+    def __str__ (self):
+        return self.title
 
 
 class Post(models.Model):

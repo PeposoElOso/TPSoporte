@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %} 
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Imagen</th>
+            <th>Author</th>
+            <th>Fecha de Publicacion</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for album in album_list %}
+            <tr class="table-primary">
+                <th scope="row">{{ forloop.counter }}</th>
+                <td><a href="{{ post.get_absolute_url }}" class="text-black" style="text-decoration: none">{{ album.title }}</a></td>
+                {% if album.image %}
+                    <td><img src="{{ album.image.url }}" class = "img-thumbnail img-fluid" style="max-width: 80px;" alt="thumbnail" ></td>
+                {% else %}
+                    <td>no image</td>
+                {% endif %}
+                <td>{{ album.author }}</td>
+                <td>{{ album.date_created }}</td>
+            </tr>
+            
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
