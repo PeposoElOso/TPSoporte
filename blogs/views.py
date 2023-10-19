@@ -1,7 +1,7 @@
 from typing import Any
-from django.shortcuts import render
-
-from blogs.models import Post, Category
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from blogs.models import Post, Category, Album
 from django.views import generic, View
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import FormView
@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 from django.urls import reverse
 from django.db.models import Q
-from blogs.forms import PostCommentForm
+from blogs.forms import PostCommentForm, ReviewForm
 
 # Create your views here.
 
@@ -22,7 +22,7 @@ def home_page(request):
     featured = Post.objects.filter(featured =True).filter(
         pub_date__lte=timezone.now()
     )[:3]
-    
+    albums = Album.objects.get
     context= {
         
         'post_list' : posts,
@@ -31,6 +31,19 @@ def home_page(request):
     }
     
     return render(request, 'blogs/home_page.html', context=context)
+
+def create_post(request):
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, request.FILES)
+        if form.is_valid():
+            new_post = form.save(commit=False)
+            new_post.author = request.user  # Asigna el autor actual
+            new_post.save()
+            return redirect('blogs:home')  # Redirige a la página deseada después de crear el post
+    else:
+        form = ReviewForm()
+    return render(request, 'blogs/new_post.html', {'form': form})
+
 
 
 class PostDetailView(generic.DetailView):
@@ -66,7 +79,7 @@ class PostCommentFormView(LoginRequiredMixin, SingleObjectMixin, FormView):
 class PostView(View):
     def get(s3elf, request,*args,**kwargs):
         view = PostDetailView.as_view()
-        return view(request,*args,**kwargs)
+        return view(request, *args, **kwargs)
     
     def post(s3elf, request,*args,**kwargs):
         view = PostCommentFormView.as_view()
@@ -111,8 +124,6 @@ class SearchResultsView(generic.ListView):
             pub_date__lte=timezone.now()
         ).distinct()
         return post_list
-
-    #def get_context_data(self, **kwargs):
-     #   context=  super().get_context_data(**kwargs)    
-      #  context['categories'] = Category.objects.all()
-       # return context
+    
+    
+    

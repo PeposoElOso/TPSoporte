@@ -16,7 +16,7 @@
         <div class="row g-5">
             <div class="col-md-8">
                 <h3 class="pb-4 mb-4 fst-italic border-bottom">
-                    Más Artículos
+                    Reviews
                 </h3>
                 {% for post in post_list %}
                     <article class="blog-post">
@@ -27,9 +27,7 @@
                             </a>
                         </h2>
                         <p class="blog-post-meta">{{ post.pub_date.date }}. {{post.author}}</p>
-
-                        <hr>
-                        <p>{{ post.overview }}</p>
+                        <div class="container" style="top: 2rem;"><img src="{{ post.album.image }}" class="img-fluid" style="max-width: 20px; max-height: 20px" alt="thumbnail"></div>
                     </article>
                 {% endfor %}
 
@@ -41,9 +39,11 @@
                         <h4 class="fst-italic">Sobre</h4>
                         <p class="mb-0">Información adicional sobre lo que se encuentra dentro de esta página.</p>
                     </div>
-            
                     <div class="p-4">
                         <h4 class="fst-italic">Más Cosas?</h4>
+                    </div>
+                    <div class="p-4">
+                        <a class="btn btn-outline-primary ms-2" href="{% url 'blogs:newpost' %}" role="button" >Nueva Publicacion</a>
                     </div>
                 </div>
             </div>

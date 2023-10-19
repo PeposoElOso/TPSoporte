@@ -2,9 +2,14 @@
 {% load markdown_extras %}
 {% load crispy_forms_tags %}
 
+{% load static %}
+<div class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">
+
 {% block content %} 
 
-<div class="container-xxl bd-gutter mt-3 my-md-4 bd-layout">
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+
 
     <main class="container">
 
@@ -20,7 +25,7 @@
                 <hr class="d-none d-md-block my-2 mb-3 mt-2">
                 {% if post.image %}
                     <div class="text-center">
-                        <img src="{{ post.image.url }}" class="img-fluid" alt="image">
+                        <img src="{{ post.image.url }}" class="img-fluid" style="max-width: 200px; max-height: 200px" alt="thumbnail">
                     </div>
                 {% endif %}
 
