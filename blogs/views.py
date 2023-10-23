@@ -24,23 +24,25 @@ def home_page(request):
         
         'post_list' : posts,
         
-    
         'albums' : albums
     }
     
     return render(request, 'blogs/home_page.html', context=context)
 
 def create_post(request):
+    albums = Album.objects.all()
+    print(albums)
     if request.method == 'POST':
         form = ReviewForm(request.POST, request.FILES)
         if form.is_valid():
             new_post = form.save(commit=False)
             new_post.author = request.user  # Asigna el autor actual
+            
             new_post.save()
             return redirect('blogs:home')  # Redirige a la página deseada después de crear el post
     else:
         form = ReviewForm()
-    return render(request, 'blogs/new_post.html', {'form': form})
+    return render(request, 'blogs/new_post.html', {'form': form, 'album':albums})
 
 
 

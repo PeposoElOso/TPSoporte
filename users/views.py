@@ -12,6 +12,7 @@ from django.views.generic.edit import UpdateView
 from django.views.generic.detail import DetailView
 
 
+
 # Create your views here.
 
 
@@ -38,3 +39,7 @@ def contador(request, user_id):
     user = User.objects.get(pk=user_id)
     
     return render(request, {'user': user})
+
+
+
+
