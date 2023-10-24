@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block content %} 
+
+
+
+<nav aria-label="">
+    <ul class="pagination pagination-lg">
+        <li class="page-item"><a class="page-link" href="{% url 'blogs:search' %}?search={{ query }}">Reviews</a></li>
+        <li class="page-item"><a class="page-link" href="{% url 'blogs:search-user' %}?search={{ query }}">Users</a></li>
+        <li class="page-item"><a class="page-link" href="{% url 'blogs:search-album' %}?search={{ query }}">Albums</a></li>
+        <li class="page-item active" aria-current="page">
+            <span class="page-link">Artists</span>
+        </li>
+        
+    </ul>
+  </nav>
+
+
+{% if artist_list %}
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Albums</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for artist in artist_list %}
+            <tr class="table-primary">
+                <th scope="row">{{ forloop.counter }}</th>
+                <td><a href="{{ artist.get_absolute_url }}" class="text-black" style="text-decoration: none">{{ artist.name }}</a></td>
+                <td>
+                    {% for album in artist.album_set.all %}
+                        {{ album.title }}
+                        {% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+
+
+{% endblock %}

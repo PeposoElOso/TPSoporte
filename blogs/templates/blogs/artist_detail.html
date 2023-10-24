@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load markdown_extras %}
+{% load crispy_forms_tags %}
+
+{% load static %}
+
+
+{% block content %} 
+    <main class="container">
+    
+        <hr class="d-none d-md-block my-2 mb-3 mt-2">
+        <hr>
+        <h2>{{ artist.name }}
+        <hr>
+        <h4>Albums:</h4>
+            <ul>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Cover</th>
+                            <th>Date of creation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        {% for album in album_list %}
+                            <tr class="table-primary">
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td><a href="{{ album.get_absolute_url }}" class="text-black" style="text-decoration: none">{{ album.title }}</a></td>
+                                {% if album.image %}
+                                    <td><img src="{{ album.image.url }}" class = "img-fluid" style="width: 80px; height: 80px; object-fit: cover;" alt="thumbnail" ></td>
+                                {% else %}
+                                    <td>Image</td>
+                                {% endif %}
+                                <td>{{ album.date_created }}</td>
+                            </tr>
+                            
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </ul>
+                            
+    
+
+            
+        
+        
+        
+    </main>
+    
+</div>
+
+{% endblock content %}

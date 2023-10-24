@@ -14,11 +14,11 @@
                     <div class="row align-items-center">
                         <div class="col-md-6">
                             <h1 class="display-4 fw-bold text-center">{{ f.title }}</h1>
-                            <p class="lead mb-0 text-center"><a href="{{ f.get_absolute_url }}" class="text-white fw-bold">Continue reading...</a></p>
+                            <p class="lead mb-0 text-center"><a style="text-decoration:none" href="{{ f.author.get_absolute_url }}" class="text-white fw-bold">{{ f.author.name }}</a></p>
                         </div>
                         <div class="col-md-6">
                             {% if f.image %}
-                                <img src="{{ f.image.url }}" class="img-fluid ml-4" style="width: 150px; height: 150px; object-fit: cover;" alt="thumbnail">
+                                <a href="{{ f.get_absolute_url }}"> <img  src="{{ f.image.url }}" class="img-fluid ml-4" style="width: 150px; height: 150px; object-fit: cover;" alt="thumbnail"></a>
                             {% else %}
                                 <td>Image</td>
                             {% endif %}

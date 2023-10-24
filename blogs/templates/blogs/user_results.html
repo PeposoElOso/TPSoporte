@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %} 
+
+
+
+<nav aria-label="">
+    <ul class="pagination pagination-lg">
+        <li class="page-item"><a class="page-link" href="{% url 'blogs:search' %}?search={{ query }}">Reviews</a></li>
+        <li class="page-item active" aria-current="page">
+            <span class="page-link">Users</span>
+        </li>
+        <li class="page-item"><a class="page-link" href="{% url 'blogs:search-album' %}?search={{ query }}">Albums</a></li>
+        <li class="page-item"><a class="page-link" href="{% url 'blogs:search-artist' %}?search={{ query }}">Artists</a></li>
+    </ul>
+  </nav>
+
+
+{% if user_list %}
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Profile pic</th>
+            <th>Detail</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for user in user_list %}
+            <tr class="table-primary">
+                <th scope="row">{{ forloop.counter }}</th>
+                <td><a href="{{ user.get_absolute_url }}" class="text-black" style="text-decoration: none">{{ user.username }}</a></td>
+                {% if user.profile_pic %}
+                    <td><img src="{{ user.profile_pic.url }}" class = "img-fluid" style="width: 80px; height: 80px; object-fit: cover;" alt="thumbnail" ></td>
+                {% else %}
+                    <td>Image</td>
+                {% endif %}
+                <td><div class="d-flex pt-1">
+                    <a class="btn btn-outline-primary ms-2" href="{% url 'users:profile' user.id %}" role="button" >See profile</a>
+                  </div></td>
+            </tr>
+            
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+
+
+{% endblock %}

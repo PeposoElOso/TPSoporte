@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block content %} 
+
+
+
+<nav aria-label="">
+    <ul class="pagination pagination-lg">
+        <li class="page-item"><a class="page-link" href="{% url 'blogs:search' %}?search={{ query }}">Reviews</a></li>
+      <li class="page-item"><a class="page-link" href="{% url 'blogs:search-user' %}?search={{ query }}">Users</a></li>
+      <li class="page-item active" aria-current="page">
+        <span class="page-link">Albums</span>
+      </li>
+      <li class="page-item"><a class="page-link" href="{% url 'blogs:search-artist' %}?search={{ query }}">Artists</a></li>
+    </ul>
+</nav>
+
+{% if album_list %}
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Cover</th>
+            <th>Date of creation</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for album in album_list %}
+            <tr class="table-primary">
+                <th scope="row">{{ forloop.counter }}</th>
+                <td><a href="{{ album.get_absolute_url }}" class="text-black" style="text-decoration: none">{{ album.title }}</a></td>
+                {% if user.profile_pic %}
+                    <td><img src="{{ album.image.url }}" class = "img-fluid" style="width: 80px; height: 80px; object-fit: cover;" alt="thumbnail" ></td>
+                {% else %}
+                    <td>Image</td>
+                {% endif %}
+                <td>{{ album.date_created }}</td>
+            </tr>
+            
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}

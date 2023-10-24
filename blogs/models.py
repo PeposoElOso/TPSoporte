@@ -10,6 +10,9 @@ class Artist(models.Model):
     
     def __str__ (self):
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse("blogs:artist", kwargs={"pk": self.pk})
 
 class Album(models.Model):
     title = models.CharField(max_length=225)
@@ -20,6 +23,10 @@ class Album(models.Model):
     
     def __str__ (self):
         return self.title
+    
+    def get_absolute_url(self):
+        return reverse("blogs:album", kwargs={"pk": self.pk})
+    
 
 
 class Post(models.Model):
