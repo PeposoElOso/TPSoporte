@@ -2,6 +2,7 @@ from typing import Any
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from blogs.models import Post, Category, Album
+from users.models import User
 from django.views import generic, View
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic import FormView
@@ -113,18 +114,26 @@ class CategoryListView(generic.ListView):
     
    
     
-class SearchResultsView(generic.ListView):
-    model = Post
+class SearchResultsView(generic.TemplateView):
     template_name = "blogs/results.html"
 
-    def get_queryset(self):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         query = self.request.GET.get('search')
+        
         post_list = Post.objects.filter(
-            Q(title__icontains=query)| Q(categories__title__icontains=query)
-            ).filter(
-            pub_date__lte=timezone.now()
-        ).distinct()
-        return post_list
-    
-    
+            Q(title__icontains=query) | Q(categories__title__icontains=query) | Q(author__username__icontains=query)
+        ).filter(pub_date__lte=timezone.now()).distinct()
+
+        user_list = User.objects.filter(Q(username__icontains=query)).distinct()
+
+        results = {
+            'post_list': post_list,
+            'user_list': user_list,
+        }
+
+        context['results'] = results
+
+        return results
+
     

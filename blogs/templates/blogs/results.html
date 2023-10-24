@@ -22,7 +22,7 @@
                 {% if post.image %}
                     <td><img src="{{ post.image.url }}" class = "img-thumbnail img-fluid" style="max-width: 80px;" alt="thumbnail" ></td>
                 {% else %}
-                    <td>No te hagas el gary bale</td>
+                    <td>Image</td>
                 {% endif %}
                 <td>{{ post.author }}</td>
                 <td>{{ post.pub_date.date }}</td>
@@ -32,4 +32,35 @@
     </tbody>
 </table>
 
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Username</th>
+            <th>Profile pic</th>
+            <th>Following</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for user in user_list %}
+            <tr class="table-primary">
+                <th scope="row">{{ forloop.counter }}</th>
+                <td><a href="{{ user.get_absolute_url }}" class="text-black" style="text-decoration: none">{{ user.username }}</a></td>
+                {% if user.profile_pic %}
+                    <td><img src="{{ user.profile_pic.url }}" class = "img-thumbnail img-fluid" style="max-width: 80px;" alt="thumbnail" ></td>
+                {% else %}
+                    <td>Image</td>
+                {% endif %}
+                <td><div class="d-flex pt-1">
+                    <button type="button" class="btn btn-primary flex-grow-1 seguir-usuario" data-usuario-id="{{ user.id }}">
+                      Follow
+                  </button>
+                  </div></td>
+            </tr>
+            
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

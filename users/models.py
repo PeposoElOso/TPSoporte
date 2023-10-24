@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from blogs.models import Post
+from django.urls import reverse
 
 
 # Create your models here.
@@ -14,5 +15,8 @@ class User(AbstractUser):
     
     def cantidad_publicaciones(self):
         return Post.objects.filter(author=self).count()
+    
+    def get_absolute_url(self):
+        return reverse("users:profile", kwargs={"id": self.id})
     
  
