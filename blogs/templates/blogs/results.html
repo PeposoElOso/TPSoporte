@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %} 
-
+{% if post_list %}
 <table class="table">
     <thead class="thead-dark">
         <tr>
@@ -19,8 +19,8 @@
                 <th scope="row">{{ forloop.counter }}</th>
                 <td><a href="{{ post.get_absolute_url }}" class="text-black" style="text-decoration: none">{{ post.title }}</a></td>
                 <td><a href="{{ post.get_absolute_url }}" class="text-black" style="text-decoration: none">{{ post.overview }}</a></td>
-                {% if post.image %}
-                    <td><img src="{{ post.image.url }}" class = "img-thumbnail img-fluid" style="max-width: 80px;" alt="thumbnail" ></td>
+                {% if post.album.image %}
+                    <td><img src="{{ post.album.image.url }}" class = "img-fluid" style="width: 80px; height: 80px; object-fit: cover;" alt="thumbnail" ></td>
                 {% else %}
                     <td>Image</td>
                 {% endif %}
@@ -31,15 +31,16 @@
         {% endfor %}
     </tbody>
 </table>
+{% endif %}
 
-
+{% if user_list %}
 <table class="table">
     <thead class="thead-dark">
         <tr>
             <th>#</th>
             <th>Username</th>
             <th>Profile pic</th>
-            <th>Following</th>
+            <th>Detail</th>
         </tr>
     </thead>
     <tbody>
@@ -49,18 +50,17 @@
                 <th scope="row">{{ forloop.counter }}</th>
                 <td><a href="{{ user.get_absolute_url }}" class="text-black" style="text-decoration: none">{{ user.username }}</a></td>
                 {% if user.profile_pic %}
-                    <td><img src="{{ user.profile_pic.url }}" class = "img-thumbnail img-fluid" style="max-width: 80px;" alt="thumbnail" ></td>
+                    <td><img src="{{ user.profile_pic.url }}" class = "img-fluid" style="width: 80px; height: 80px; object-fit: cover;" alt="thumbnail" ></td>
                 {% else %}
                     <td>Image</td>
                 {% endif %}
                 <td><div class="d-flex pt-1">
-                    <button type="button" class="btn btn-primary flex-grow-1 seguir-usuario" data-usuario-id="{{ user.id }}">
-                      Follow
-                  </button>
+                    <a class="btn btn-outline-primary ms-2" href="{% url 'users:profile' user.id %}" role="button" >See profile</a>
                   </div></td>
             </tr>
             
         {% endfor %}
     </tbody>
 </table>
+{% endif %}
 {% endblock %}

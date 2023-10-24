@@ -11,14 +11,19 @@
         {% for f in albums %}
             <div class="carousel-item {% if f == albums|first %}active{% endif %}">
                 <div class="px-5 p-md-5 mb-4 rounded text-bg-success bg-gradient" style="height: 300px">
-                    <div class="col-md-10 px-5 mx-5">
-                        <h1 class="display-4 fw-bold px-5">{{ f.title }}</h1>
-                        <p class="lead mb-0 px-5"><a href="{{ f.get_absolute_url }}" class="text-white fw-bold">Continue
-                            reading...</a></p>
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <h1 class="display-4 fw-bold text-center">{{ f.title }}</h1>
+                            <p class="lead mb-0 text-center"><a href="{{ f.get_absolute_url }}" class="text-white fw-bold">Continue reading...</a></p>
+                        </div>
+                        <div class="col-md-6">
+                            {% if f.image %}
+                                <img src="{{ f.image.url }}" class="img-fluid ml-4" style="width: 150px; height: 150px; object-fit: cover;" alt="thumbnail">
+                            {% else %}
+                                <td>Image</td>
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-10 px-5 mx-5">
-                    <td><img src="{{ f.image }}" class = "img-thumbnail img-fluid" style="max-width: 50px;" alt="thumbnail" ></td>
                 </div>
             </div>
         {% endfor %}

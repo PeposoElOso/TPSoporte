@@ -30,7 +30,6 @@ class Post(models.Model):
     album = models.ForeignKey(Album, on_delete=models.PROTECT)
     categories = models.ManyToManyField('Category',)
     featured = models.BooleanField(default=False)
-    image = models.ImageField(upload_to='post_images/', blank=True, null=True)
     pub_date = models.DateTimeField(default=timezone.now)
     
     

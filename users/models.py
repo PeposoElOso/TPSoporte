@@ -17,6 +17,6 @@ class User(AbstractUser):
         return Post.objects.filter(author=self).count()
     
     def get_absolute_url(self):
-        return reverse("users:profile", kwargs={"id": self.id})
+        return reverse("users:profile", kwargs={"user_id": self.id})
     
  

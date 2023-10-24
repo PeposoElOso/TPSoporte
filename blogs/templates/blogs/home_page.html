@@ -19,18 +19,25 @@
                     Reviews
                 </h3>
                 {% for post in post_list %}
-                
-                    <article class="blog-post">
-                        <h2 class="blog-post-title mb-1">
-                            <a href="{{ post.get_absolute_url }}" style="text-decoration: none"
-                               class="text-black">
-                                {{ post.title }}
-                            </a>
-                        </h2>
-                        <p class="blog-post-meta">{{ post.pub_date.date }}. {{post.author}}</p>
-                        <div><img src="{{ post.album.image }}" class="img-fluid" style="max-width: 200px; max-height: 200px" alt="image"></div>
+                    <article class="blog-post" style="height: 150px;" >
+                        <div class="d-flex">  
+                            <div class="flex-grow-1 ms-3">  
+                                <h2 class="blog-post-title mb-1">
+                                    <a href="{{ post.get_absolute_url }}" style="text-decoration: none" class="text-black">
+                                        {{ post.title }}
+                                    </a>
+                                </h2>
+                                <p class="blog-post-meta">{{ post.pub_date.date }}. {{ post.author }}</p>
+                            </div>
+                            <div class="flex-shrink-0">  
+                                {% if post.album.image %}
+                                <img src="{{ post.album.image.url }}" class="img-fluid" style="width: 100px; height: 100px; object-fit: cover;" alt="image">
+                                {% else %}
+                                    <td>Image</td>
+                                {% endif %}
+                            </div>
+                        </div>
                         <hr>
-                        
                     </article>
                 {% endfor %}
 
@@ -40,11 +47,10 @@
                 <div class="position-sticky" style="top: 2rem;">
                     <div class="p-4 mb-3 bg-light rounded">
                         <h4 class="fst-italic">Sobre</h4>
-                        <p class="mb-0">Información adicional sobre lo que se encuentra dentro de esta página.</p>
+                        <p class="mb-0">¿Buscas la banda sonora perfecta para cada momento de tu vida? Bienvenido a tu fuente definitiva de reseñas de música que te harán vibrar. 
+                            Sumérgete en un mundo de notas y emociones mientras exploramos y calificamos las últimas canciones y álbumes que están causando sensación en la escena musical.</p>
                     </div>
-                    <div class="p-4">
-                        <h4 class="fst-italic">Más Cosas?</h4>
-                    </div>
+                    
                     <div class="p-4">
                         <a class="btn btn-outline-primary ms-2" href="{% url 'blogs:newpost' %}" role="button" >Nueva Publicacion</a>
                     </div>

@@ -23,10 +23,12 @@
                     </div>
                 </div>
                 <hr class="d-none d-md-block my-2 mb-3 mt-2">
-                {% if post.image %}
+                {% if post.album.image %}
                     <div class="text-center">
-                        <img src="{{ post.image.url }}" class="img-fluid" style="max-width: 200px; max-height: 200px" alt="thumbnail">
+                        <img src="{{ post.album.image.url }}" class="img-fluid" style="max-width: 200px; max-height: 200px" alt="thumbnail">
                     </div>
+                {% else %}
+                    <strong>No Album Image</strong>
                 {% endif %}
 
                 <p>{{ post.content | markdown | safe }}</p>

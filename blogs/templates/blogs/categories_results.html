@@ -18,7 +18,7 @@
                 <th scope="row">{{ forloop.counter }}</th>
                 <td><a href="{{ post.get_absolute_url }}" class="text-black" style="text-decoration: none">{{ album.title }}</a></td>
                 {% if album.image %}
-                    <td><img src="{{ album.image.url }}" class = "img-thumbnail img-fluid" style="max-width: 80px;" alt="thumbnail" ></td>
+                    <td><img src="{{ album.image.url }}" class = "img-fluid" style="width: 80px; height: 80px; object-fit: cover;" alt="thumbnail" ></td>
                 {% else %}
                     <td>no image</td>
                 {% endif %}

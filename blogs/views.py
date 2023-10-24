@@ -109,7 +109,6 @@ class CategoryListView(generic.ListView):
         query = self.request.path.replace('/category/','')
         
         album_list = Album.objects.filter(categories__id = query)
-        print(album_list)
         return album_list
     
    

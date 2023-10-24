@@ -10,7 +10,7 @@ from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import UpdateView
 from django.views.generic.detail import DetailView
-
+from django.shortcuts import get_object_or_404
 
 
 # Create your views here.
@@ -31,9 +31,10 @@ class UserRegistration(FormView):
 class ProfileView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'users/profile.html'
+    
     def get_object(self, queryset=None):
-        
-        return self.request.user
+        user_id = self.kwargs.get('user_id')  # Obtén el user_id desde los parámetros de la URL
+        return get_object_or_404(User, id=user_id)
       
 def contador(request, user_id):
     user = User.objects.get(pk=user_id)
