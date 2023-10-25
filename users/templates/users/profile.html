@@ -24,6 +24,7 @@
                 {% endif %}
 
 
+                
               </div>
               <div class="flex-grow-1 ms-3">
                 <h5 class="mb-1"> {{ user.username }}</h5>
@@ -43,12 +44,18 @@
                     <p class="mb-0">8.5</p>
                   </div>
                 </div>
+                {% if request.user != user %}
                 <div class="d-flex pt-1">
                   <button type="button" class="btn btn-primary flex-grow-1 seguir-usuario" data-usuario-id="{{ user.id }}">
-                    Follow
+                    {% if user in request.user.followers.all %}
+                        Unfollow
+                    {% else %}
+                        Follow
+                    {% endif %}
                 </button>
                 </div>
-                
+                {% endif %}
+                                
                   
                 </div>
               </div>
