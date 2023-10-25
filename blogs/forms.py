@@ -14,4 +14,4 @@ class ReviewForm(forms.ModelForm):
     content = forms.CharField(label='Ingrese una review')
     class Meta:
         model = Post
-        fields = ('title','content','album')
+        fields = ('title','content','album', 'rating')

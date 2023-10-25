@@ -38,6 +38,7 @@ class Post(models.Model):
     categories = models.ManyToManyField('Category',)
     featured = models.BooleanField(default=False)
     pub_date = models.DateTimeField(default=timezone.now)
+    rating = models.IntegerField(default=1, choices=zip(range(1, 6), range(1, 6)))
     
     
     def get_absolute_url(self):

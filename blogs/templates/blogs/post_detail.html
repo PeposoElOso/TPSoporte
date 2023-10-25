@@ -30,8 +30,19 @@
                 {% else %}
                     <strong>No Album Image</strong>
                 {% endif %}
+                <!-- Mostrar el puntaje con estrellas -->
+                <div id="rate" data-rating="{{ post.rating }}"></div>
 
+
+                
                 <p>{{ post.content | markdown | safe }}</p>
+                <hr>
+                
+                
+                    
+                
+
+                
 
                 <h3 id="comments-section">Comentarios</h3>
 

@@ -6,22 +6,27 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6 offset-md-3">
-            <h2 class="text-center">Crear Nuevo Posteo</h2>
+            <h2 class="text-center">Nuevo Posteo</h2>
             <form method="post" enctype="multipart/form-data" class="mt-4">
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="{{ form.title.id_for_label }}" class="form-label">Título</label>
-                    {{ form.title }}
+                    <input type="text" class="form-control" id="{{ form.title.id_for_label }}" name="title" placeholder="Titulo">
                 </div>
                 <div class="mb-3">
                     <label for="{{ form.content.id_for_label }}" class="form-label">Contenido</label>
-                    {{ form.content }}
+                    <textarea type="text" class="form-control"  id="{{ form.content.id_for_label }}" name="content" placeholder="Contenido" style="height: 150px;"></textarea>
                 </div>
+                
                 <div class="mb-3">
                     <label for="{{ form.album.id_for_label }}" class="form-label">Álbum</label>
                     {{ form.album }}
                 </div>
-
+                <div class="mb-3">
+                    <label for="{{ form.rating.id_for_label }}" class="form-label">Calificación:</label>
+                    <div id="rating"></div> <!-- El elemento donde se mostrarán las estrellas -->
+                    <input type="hidden" name="rating" id="rating-input"> <!-- Campo oculto para guardar el valor de la calificación -->
+                </div>
 
                 <button type="submit" class="btn btn-primary">Publicar</button>
             </form>
@@ -31,3 +36,4 @@
 {% endblock %}
 
 
+ 

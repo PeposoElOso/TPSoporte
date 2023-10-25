@@ -41,38 +41,15 @@
                     </ul>
                     <hr>                
 
-  <!--                 <h3 id="comments-section">Comentarios</h3>
 
-                <hr class="d-none d-md-block my-2 mb-3 mt-2">
-
-                <form method="post" >
-                    {% csrf_token %}
-                    <h1 class="h3 mb-3 fw-normal"></h1>
-                    {{ form|crispy }}
-                    <button class=" btn  btn-primary " type="submit">Enter</button>
-                </form>
-                <hr class="d-none d-md-block my-2 mb-3 mt-2">
-
-                {% for comment in post.comment_set.all %}
-                    <div class="mt-4 mb-2 border border-opacity-10 rounded p-1">
-                        <div class="row">
-                            <div class="col-8 d-flex">
-                                <h5>{{ comment.author.username }}</h5>
-                                <span>- {{ comment.post_date }}</span>
-                            </div>
-                            <div class="col-4 text-end">
-                            </div>
-                        </div>
-                        {{ comment.content }}
-                    </div>
-                {% endfor %}
-                -->
             </div>
 
             <div class="col-md-4">
                 <div class="position-sticky" style="top: 2rem;">
                     <div class="p-4">
-                        <a class="btn btn-outline-primary ms-2" href="{% url 'blogs:newpost' %}" role="button" style="width: 300px; height: 100px;">Nueva Publicacion</a>
+                        <a class="btn btn-outline-primary ms-2" href="{% url 'blogs:newpost' %}" 
+                        role="button" style="width: 300px; height: 150px; display: flex; justify-content: center; align-items: center;">Nueva Publicación</a>
+
                     </div>
                 </div>
             </div>
