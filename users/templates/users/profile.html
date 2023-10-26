@@ -39,20 +39,24 @@
                     <p class="small text-muted mb-1">Followers</p>
                     <p class="mb-0">{{ user.followers.all.count }}</p>
                   </div>
+                  <div class="px-3">
+                    <p class="small text-muted mb-1">Following</p>
+                    <p class="mb-0">{{ user.following.all.count }}</p>
+                  </div>
                   <div>
                     <p class="small text-muted mb-1">Rating</p>
-                    <p class="mb-0">8.5</p>
+                    <p class="mb-0">{{ user.rating }}/5</p>
                   </div>
                 </div>
                 {% if request.user != user %}
                 <div class="d-flex pt-1">
-                  <button type="button" class="btn btn-primary flex-grow-1 seguir-usuario" data-usuario-id="{{ user.id }}">
-                    {% if user in request.user.followers.all %}
-                        Unfollow
-                    {% else %}
-                        Follow
-                    {% endif %}
-                </button>
+                    <button type="button" class="btn btn-primary flex-grow-1 seguir-usuario" data-usuario-id="{{ user.id }}">
+                        {% if user in request.user.following.all %}
+                            Unfollow
+                        {% else %}
+                            Follow
+                        {% endif %}
+                    </button>
                 </div>
                 {% endif %}
                                 

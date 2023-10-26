@@ -49,6 +49,44 @@
             });
         </script>
 
+        <script>
+            // Obtén el token CSRF de las cookies
+            function getCSRFToken() {
+                const cookieValue = document.cookie
+                    .split('; ')
+                    .find(row => row.startsWith("csrftoken="))
+                    .split('=')[1];
+                return cookieValue;
+            }
+        
+            $(".seguir-usuario").on("click", function() {
+                const button = $(this);
+                const userId = button.data("usuario-id");
+                const isFollowing = button.text().trim() === "Unfollow";
+        
+                // Obtén el token CSRF
+                const csrfToken = getCSRFToken();
+        
+                $.ajax({
+                    type: "POST",
+                    url: `users/seguir-usuario/${userId}/`,
+                    data: {
+                        is_following: isFollowing,
+                        csrfmiddlewaretoken: csrfToken
+                    },
+                    success: function(data) {
+                        if (isFollowing) {
+                            button.text("Follow");
+                        } else {
+                            button.text("Unfollow");
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error al seguir/dejar de seguir al usuario: " + error);
+                    }
+                });
+            });
+        </script>
         
             
 </body>

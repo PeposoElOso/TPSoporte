@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.detail import DetailView
 from django.shortcuts import get_object_or_404, redirect
 from django.views import View
+from django.http import JsonResponse
 # Create your views here.
 
 
@@ -42,6 +43,24 @@ def contador(request, user_id):
     
     return render(request, {'user': user})
 
+ 
+def seguir_usuario(request, user_id):
+    # Obtén el usuario que se está siguiendo
+    user_to_follow = get_object_or_404(User, id=user_id)
+    
+    if request.user != user_to_follow:
+        if request.user in user_to_follow.followers.all():
+            # Si el usuario actual ya está siguiendo al usuario, entonces dejaremos de seguirlo
+            request.user.following.remove(user_to_follow)
+            is_following = False  # Indicamos que ya no se está siguiendo al usuario
+        else:
+            # Si el usuario actual no está siguiendo al usuario, lo seguiremos
+            request.user.following.add(user_to_follow)
+            is_following = True  # Indicamos que ahora se está siguiendo al usuario
 
+        # Devuelve una respuesta JSON para indicar el estado actual de seguimiento
+        return JsonResponse({'is_following': is_following})
 
+    # Maneja el caso en el que el usuario intenta seguirse a sí mismo
+    return JsonResponse({'error': 'No puedes seguirte a ti mismo'})
 
