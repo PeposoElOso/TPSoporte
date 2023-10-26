@@ -26,6 +26,7 @@
             <th>Title</th>  
             <th>Image</th>
             <th>Author</th>
+            <!--<th>Rate</th>-->
             <th>Fecha de Publicacion</th>
         </tr>
     </thead>
@@ -42,6 +43,7 @@
                     <td>Image</td>
                 {% endif %}
                 <td>{{ post.author }}</td>
+                <!--<td><div id="rate" data-rating="{{ post.rating }}"></div></td>-->
                 <td>{{ post.pub_date.date }}</td>
             </tr>
             

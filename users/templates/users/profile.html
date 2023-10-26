@@ -11,26 +11,24 @@
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col col-md-9 col-lg-7 col-xl-5">
-        <div class="card" style="border-radius: 15px;">
+        <div class="card" style="border-radius: 15px;width: 620px;height:220px;">
           <div class="card-body p-4">
             <div class="d-flex text-black">
               <div class="flex-shrink-0">
                 {% if user.profile_pic %}
                   <img src="{{ user.profile_pic.url }}"
                   alt="img" class="img-fluid"
-                  style="width: 120px; border-radius: 2px;">
+                  style="width: 120px; height:120px; border-radius: 60px;">
                 {% else %}
                   <td>Image</td>
                 {% endif %}
-
-
                 
               </div>
-              <div class="flex-grow-1 ms-3">
+              <div class="flex-grow-1 ms-3" style= "width: 320px;height:150px;">
                 <h5 class="mb-1"> {{ user.username }}</h5>
     
                 <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
-                  style="background-color: #efefef;">
+                  style="background-color: #efefef; height:75px;">
                   <div>
                     <p class="small text-muted mb-1">Posts</p>
                     <p class="mb-0">{{ user.cantidad_publicaciones }}</p>
@@ -44,7 +42,7 @@
                     <p class="mb-0">{{ user.following.all.count }}</p>
                   </div>
                   <div>
-                    <p class="small text-muted mb-1">Rating</p>
+                    <p class="small text-muted mb-1">Avg.Rating</p>
                     <p class="mb-0">{{ user.rating }}/5</p>
                   </div>
                 </div>

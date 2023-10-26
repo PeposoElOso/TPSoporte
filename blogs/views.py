@@ -109,7 +109,8 @@ class FeaturedListView(generic.ListView):
     
     
     def get_queryset(self):
-        query = Post.objects.filter(featured =True).filter(
+        query = Post.objects.filter(
+            featured__gte=150).filter(
         pub_date__lte=timezone.now()
     )
         

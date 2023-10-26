@@ -25,21 +25,31 @@
                 <hr class="d-none d-md-block my-2 mb-3 mt-2">
                 {% if post.album.image %}
                     <div class="text-center">
-                        <img src="{{ post.album.image.url }}" class="img-fluid" style="max-width: 200px; max-height: 200px" alt="thumbnail">
+                        <img src="{{ post.album.image.url }}" class="img-fluid" style="max-width: 250px; max-height: 250px" alt="thumbnail">
                     </div>
                 {% else %}
                     <strong>No Album Image</strong>
                 {% endif %}
                 <!-- Mostrar el puntaje con estrellas -->
-                <div id="rate" data-rating="{{ post.rating }}"></div>
-                <p>{{ post.lecturas }}</p>
-                <p>{{ post.featured }}</p>
+                
+
+
+                <div class="d-flex justify-content-between">
+                    <div id="rate" data-rating="{{ post.rating }}"></div>
+                    <div>
+                        <p class="font-weight-bolder"> Lecturas: {{ post.lecturas }}</p>
+                        
+                    </div>
+                    
+                </div>
+                <hr>
+                
                 
 
 
                 
                 <p>{{ post.content | markdown | safe }}</p>
-                <hr>
+               
                 
                 
                     

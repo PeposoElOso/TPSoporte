@@ -33,7 +33,7 @@
             </form>
             {% if user.is_authenticated %}
                 <a class="btn btn-outline-primary ms-2" href="{% url 'logout' %}" role="button" >Sign Out</a>
-                <a class="btn btn-outline-primary ms-2" href="{% url 'users:profile' user.id %}" role="button" >Profile</a>
+                <a class="btn btn-outline-primary ms-2" href="{% url 'users:profile' request.user.id %}" role="button" >Profile</a>
             {% else %}
                 <a class="btn btn-outline-primary ms-2" href="{% url 'login' %}" role="button" >Sign In</a>
             {% endif %}
