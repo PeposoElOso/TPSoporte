@@ -2,6 +2,9 @@ from django.db import models
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
+from django.conf import settings
+from django.dispatch import receiver
+from django.db.models.signals import pre_save
 # Create your models here.
 
 
@@ -36,9 +39,11 @@ class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
     album = models.ForeignKey(Album, on_delete=models.PROTECT)
     categories = models.ManyToManyField('Category',)
-    featured = models.BooleanField(default=False)
+    
     pub_date = models.DateTimeField(default=timezone.now)
     rating = models.IntegerField(default=1, choices=zip(range(1, 6), range(1, 6)))
+    lecturas = models.IntegerField(default=1)
+    featured = models.FloatField(default=0)
     
     
     def get_absolute_url(self):
@@ -49,6 +54,29 @@ class Post(models.Model):
     
     def __str__ (self):
         return self.title
+    
+    
+    def featured_calc(self):
+        a = 1  # ponderación cantidad de lecturas
+        b = 30  # ponderación cantidad de publicaciones del autor
+        c = 50  # ponderación cantidad de días desde que se publicó
+        fecha_referencia = timezone.now()
+        diferencia_dias = (fecha_referencia - self.pub_date).days
+        featured_number = a * self.lecturas + b * self.author.cantidad_publicaciones() - c * diferencia_dias
+        return float(featured_number)
+
+    def save(self, *args, **kwargs):
+        self.featured = self.featured_calc()  # Calcula 'featured' antes de guardar
+        super(Post, self).save(*args, **kwargs)
+
+    # Resto de tu modelo
+
+# Signal para calcular 'featured' antes de guardar el objeto
+@receiver(pre_save, sender=Post)
+def calculate_featured(sender, instance, **kwargs):
+    instance.featured = instance.featured_calc()
+    
+    
     
 class Category(models.Model):
     title = models.CharField(max_length=225)

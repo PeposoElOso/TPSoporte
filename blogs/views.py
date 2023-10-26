@@ -13,6 +13,7 @@ from django.db.models import Q
 from blogs.forms import PostCommentForm, ReviewForm
 import random
 from django.shortcuts import get_object_or_404
+from django.db.models import F
 # Create your views here.
 
 
@@ -25,7 +26,7 @@ def home_page(request):
         posts = Post.objects.filter(
             author__in=following_users,
             pub_date__lte=timezone.now()
-        )
+        ).order_by('-featured')
     else:
         # Si el usuario no ha iniciado sesión, muestra todos los Post
         posts = Post.objects.filter(pub_date__lte=timezone.now())
@@ -87,7 +88,13 @@ class PostCommentFormView(LoginRequiredMixin, SingleObjectMixin, FormView):
         return reverse('blogs:post', kwargs= {'pk':self.object.pk}) + '#comments-section'
     
 class PostView(View):
+    
     def get(s3elf, request,*args,**kwargs):
+        
+        post = get_object_or_404(Post, pk=kwargs['pk'])  # Asegúrate de usar el nombre correcto del parámetro
+        post.lecturas += 1  # Incrementa las lecturas
+        post.save()
+        
         view = PostDetailView.as_view()
         return view(request, *args, **kwargs)
     
