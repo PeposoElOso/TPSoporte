@@ -45,13 +45,3 @@ def contador(request, user_id):
 
 
 
-class seguir_usuario(View):
-    def post(self, request, user_id):
-        user = get_object_or_404(User, id=user_id)
-        if self.request.user in user.followers.all():
-            # Si el usuario actual ya está siguiendo al usuario, entonces dejaremos de seguirlo
-            self.request.user.followers.remove(user)
-        else:
-            # Si el usuario actual no está siguiendo al usuario, lo seguiremos
-            self.request.user.followers.add(user)
-        return redirect('users:profile', user_id=user.id)

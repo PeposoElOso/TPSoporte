@@ -31,7 +31,7 @@
                 <th scope="row">{{ forloop.counter }}</th>
                 <td><a href="{{ album.get_absolute_url }}" class="text-black" style="text-decoration: none">{{ album.title }}</a></td>
                 {% if user.profile_pic %}
-                    <td><img src="{{ album.image.url }}" class = "img-fluid" style="width: 80px; height: 80px; object-fit: cover;" alt="thumbnail" ></td>
+                    <td><a href="{{ album.get_absolute_url }}"><img src="{{ album.image.url }}" class = "img-fluid" style="width: 80px; height: 80px; object-fit: cover;" alt="thumbnail" ></a></td>
                 {% else %}
                     <td>Image</td>
                 {% endif %}

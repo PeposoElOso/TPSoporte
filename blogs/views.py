@@ -17,16 +17,24 @@ from django.shortcuts import get_object_or_404
 
 
 def home_page(request):
-    posts = Post.objects.filter(
-        pub_date__lte=timezone.now()
-    )
+    if request.user.is_authenticated:
+        # Obtén los usuarios a los que sigue el usuario actual
+        followers_users = request.user.followers.all()
+        
+        # Filtra los Post de los usuarios a los que sigues
+        posts = Post.objects.filter(
+            author__in=followers_users,
+            pub_date__lte=timezone.now()
+        )
+    else:
+        # Si el usuario no ha iniciado sesión, muestra todos los Post
+        posts = Post.objects.filter(pub_date__lte=timezone.now())
     categories = Category.objects.all()
     all_albums = Album.objects.all()
     albums = random.sample(list(all_albums), 3)
     context= {
         
         'post_list' : posts,
-        
         'albums' : albums
     }
     

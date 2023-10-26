@@ -21,13 +21,16 @@
                 {% for post in post_list %}
                     <article class="blog-post" style="height: 150px;" >
                         <div class="d-flex">  
-                            <div class="flex-grow-1 ms-3">  
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="blog-post-meta"> 
+                                    <a  style="text-decoration:none" class="text-black fw-bold" href="{% url 'users:profile' post.author.id %}" role="button" >{{ post.author }}</a></h6>  
                                 <h2 class="blog-post-title mb-1">
                                     <a href="{{ post.get_absolute_url }}" style="text-decoration: none" class="text-black">
                                         {{ post.title }}
                                     </a>
                                 </h2>
-                                <p class="blog-post-meta">{{ post.pub_date.date }}. {{ post.author }}</p>
+                                <p class="blog-post-meta">{{ post.pub_date.date }}</p>
+                                
                             </div>
                             <div class="flex-shrink-0">  
                                 {% if post.album.image %}
