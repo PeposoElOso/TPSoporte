@@ -254,9 +254,9 @@ class ArtistDetailView(generic.ListView):
 
     def get_queryset(self):
         # Obtén el artista a través de su clave primaria (pk) desde la URL
-        artist = Artist.objects.get(pk=self.kwargs['pk'])
+        artist = (Artist.objects.get(pk=self.kwargs['pk']))
         # Filtra los álbumes relacionados con el artista
-        return Album.objects.filter(author=artist)
+        return Album.objects.filter(author=artist).order_by('-date_created')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -43,7 +43,8 @@
                   </div>
                   <div>
                     <p class="small text-muted mb-1">Avg.Rating</p>
-                    <p class="mb-0">{{ user.rating }}/5</p>
+                    <p class="mb-0">{{ user.rating|floatformat:"1" }}/5</p>
+
                   </div>
                 </div>
                 {% if request.user != user %}
