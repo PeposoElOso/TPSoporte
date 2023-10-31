@@ -1,7 +1,7 @@
 from typing import Any
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from blogs.models import Post, Category, Album, Artist
+
+from blogs.models import Post, Album, Artist
 from users.models import User
 from django.views import generic, View
 from django.views.generic.detail import SingleObjectMixin
@@ -13,7 +13,7 @@ from django.db.models import Q
 from blogs.forms import PostCommentForm, ReviewForm
 import random
 from django.shortcuts import get_object_or_404
-from django.db.models import F
+
 # Create your views here.
 
 
@@ -40,13 +40,14 @@ def home_page(request):
     
     return render(request, 'blogs/home_page.html', context=context)
 
-def create_post(request):
+def create_post( request):
     albums = Album.objects.all()
     
     if request.method == 'POST':
         form = ReviewForm(request.POST, request.FILES)
         if form.is_valid():
             new_post = form.save(commit=False)
+            #new_post.categories = new_post.album.categories
             new_post.author = request.user  # Asigna el autor actual
             
             new_post.save()
@@ -138,15 +139,13 @@ class SearchReviewsView(generic.TemplateView):
         query = self.request.GET.get('search')
         
         post_list = Post.objects.filter(
-            Q(title__icontains=query) | Q(categories__title__icontains=query) | Q(author__username__icontains=query)
+            Q(title__icontains=query) | Q(album__categories__title__icontains=query) | Q(author__username__icontains=query)
         ).filter(pub_date__lte=timezone.now()).distinct()
 
-        user_list = User.objects.filter(Q(username__icontains=query)).distinct()
-        album_list = Album.objects.filter(Q(title__icontains=query)).distinct()
+       
         results = {
             'post_list': post_list,
-            'user_list': user_list,
-            'album_list':album_list,
+            
             'query':query
         }
 
@@ -163,16 +162,14 @@ class SearchUsersView(generic.TemplateView):
         context = super().get_context_data(**kwargs)
         query = self.request.GET.get('search')
         
-        post_list = Post.objects.filter(
-            Q(title__icontains=query) | Q(categories__title__icontains=query) | Q(author__username__icontains=query)
-        ).filter(pub_date__lte=timezone.now()).distinct()
+        
 
         user_list = User.objects.filter(Q(username__icontains=query)).distinct()
-        album_list = Album.objects.filter(Q(title__icontains=query)).distinct()
+      
         results = {
-            'post_list': post_list,
+            
             'user_list': user_list,
-            'album_list':album_list,
+            
             'query':query
         }
 
@@ -187,15 +184,10 @@ class SearchAlbumsView(generic.TemplateView):
         context = super().get_context_data(**kwargs)
         query = self.request.GET.get('search')
         
-        post_list = Post.objects.filter(
-            Q(title__icontains=query) | Q(categories__title__icontains=query) | Q(author__username__icontains=query)
-        ).filter(pub_date__lte=timezone.now()).distinct()
-
-        user_list = User.objects.filter(Q(username__icontains=query)).distinct()
-        album_list = Album.objects.filter(Q(title__icontains=query)).distinct()
+        
+        album_list = Album.objects.filter(Q(title__icontains=query)| Q(categories__title__icontains=query)).distinct()
         results = {
-            'post_list': post_list,
-            'user_list': user_list,
+            
             'album_list':album_list,
             'query':query,
         }
@@ -212,18 +204,12 @@ class SearchArtistView(generic.TemplateView):
         context = super().get_context_data(**kwargs)
         query = self.request.GET.get('search')
         
-        post_list = Post.objects.filter(
-            Q(title__icontains=query) | Q(categories__title__icontains=query) | Q(author__username__icontains=query)
-        ).filter(pub_date__lte=timezone.now()).distinct()
-
-        user_list = User.objects.filter(Q(username__icontains=query)).distinct()
+        
         artist_list = Artist.objects.filter(Q(name__icontains=query)).distinct()
-        album_list = Album.objects.filter(Q(title__icontains=query)).distinct()
+        
         results = {
             'artist_list': artist_list,
-            'post_list': post_list,
-            'user_list': user_list,
-            'album_list':album_list,
+            
             'query':query,
         }
 

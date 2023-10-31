@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on 127.0.0.1:8000
+From: webmaster@localhost
+To: franchuvelazquez2002@gmail.com
+Date: Tue, 31 Oct 2023 13:13:02 -0000
+Message-ID: <169875798227.56232.9276784256972188612@DESKTOP-1UJL5QG>
+
+
+You're receiving this email because you requested a password reset for your user account at 127.0.0.1:8000.
+
+Please go to the following page and choose a new password:
+
+http://127.0.0.1:8000/accounts/reset/MTA/bwxj1q-d1a937f857f451832dab7639d280ce0b/
+
+Your username, in case you’ve forgotten: peposoeloso
+
+Thanks for using our site!
+
+The 127.0.0.1:8000 team
+
+
+
+-------------------------------------------------------------------------------

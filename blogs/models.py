@@ -59,7 +59,7 @@ class Post(models.Model):
     def featured_calc(self):
         a = 1  # ponderación cantidad de lecturas
         b = 30  # ponderación cantidad de publicaciones del autor
-        c = 50  # ponderación cantidad de días desde que se publicó
+        c = 30  # ponderación cantidad de días desde que se publicó
         fecha_referencia = timezone.now()
         diferencia_dias = (fecha_referencia - self.pub_date).days
         featured_number = a * self.lecturas + b * self.author.cantidad_publicaciones() - c * diferencia_dias
